@@ -17,7 +17,11 @@ public class FrameAplication extends javax.swing.JFrame {
     private DefaultTableModel model;
     
     // Variable current id
+<<<<<<< HEAD
     private int number = 0;
+=======
+   
+>>>>>>> 6808c51792e6235be5018cca27e7c389a3d100a3
     
     // Varieble id yang dipilih
     private int selectedNumber = 0;
