@@ -17,11 +17,13 @@ public class FrameAplication extends javax.swing.JFrame {
     private DefaultTableModel model;
     
     // Variable current id
-    private int id = 0;
+    private int number = 0;
     
     // Varieble id yang dipilih
-    private int selectedId = 0;
+    private int selectedNumber = 0;
     private int amount;
+    private int date;
+    private int decription;
     
     /**
      * Creates new form FrameAplication
@@ -39,7 +41,7 @@ private void initTable() {
         tb_data.setModel(model);
         
         // Menambahkan kolom awal pada bagian atas
-  
+        model.addColumn("number");
         model.addColumn("Amount");
         model.addColumn("Date ");
         model.addColumn("Type");
@@ -49,6 +51,14 @@ private void initTable() {
         btn_delete.setVisible(false); 
     }       
 
+ private String getSelectedRow() {
+         int selectedRowIndex = tb_data.getSelectedRow();
+         Object selectedObject = (Object) tb_data.getModel().getValueAt(
+            selectedRowIndex, 0
+         );
+         
+         return String.valueOf(selectedObject);    
+    }
 
     private void store() {
      
@@ -58,13 +68,14 @@ private void initTable() {
         String description = tf_description.getText();
 
         this.number = this.number + 1;
-        String amount = String.valueOf(this.);
+        String number = String.valueOf(this.number);
 
         Object[] obj = new Object[]{
+            number,
             amount,
             date,
             type,
-            description, 
+            description
            
         };
         
@@ -127,7 +138,7 @@ private void initTable() {
         jLabel3.setText("SELAMAT DATANG ");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setText("Deskripsi");
+        jLabel5.setText("Description");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel6.setText("Amount");
@@ -146,6 +157,11 @@ private void initTable() {
         jLabel8.setText("Type");
 
         btn_putin.setText("PutIn");
+        btn_putin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_putinActionPerformed(evt);
+            }
+        });
 
         btn_delete.setText("Delete");
 
@@ -259,6 +275,14 @@ private void initTable() {
                 "Number", "Amount", "Date", "Type", "Description"
             }
         ));
+        tb_data.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tb_dataMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tb_dataMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tb_data);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -323,6 +347,51 @@ private void initTable() {
        
        
     }//GEN-LAST:event_tf_typeActionPerformed
+
+    private void btn_putinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_putinActionPerformed
+        // TODO add your handling code here:
+     if (this.selectedNumber > 0) {
+         this.store();
+        }
+    }//GEN-LAST:event_btn_putinActionPerformed
+
+    private void tb_dataMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_dataMousePressed
+        String row = this.getSelectedRow();
+        
+        String amount = null;
+        String date = null;
+        String description = null;
+        String type = null;
+
+        // Pencarian baris dan kolom pada model tabel
+        for (int i = 0; model.getRowCount() > i; i++) {
+            String number = (String) model.getValueAt(i, 0);
+            
+            if (number.equals(row)) {
+                this.selectedNumber = Integer.parseInt(number);
+                
+                amount = (String) model.getValueAt(i, 1);
+                date = (String) model.getValueAt(i, 2);
+                
+                description = (String) model.getValueAt(i, 4);
+                
+                // Tombol hapus ditampilkan
+                btn_delete.setVisible(true);
+            }
+          }
+        
+        tf_amount.setText(amount);
+        tf_date.setText(date);
+       
+        tf_description.setText(description);
+         
+        
+        
+    }//GEN-LAST:event_tb_dataMousePressed
+
+    private void tb_dataMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_dataMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tb_dataMouseReleased
 
     /**
      * @param args the command line arguments
