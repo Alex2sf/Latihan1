@@ -9,6 +9,8 @@ import personal.financial.records.application.Encap;
  *
  * @author Alex Zaro Daeli
  * @author Izzan Khairil Anam
+ * @author Zayidan Ilham
+ *
  */
 public class FrameAplication extends javax.swing.JFrame {
     
