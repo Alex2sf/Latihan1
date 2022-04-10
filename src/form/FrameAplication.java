@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package form;
-import personal.financial.records.application.Encap;
+ 
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,16 +14,62 @@ import personal.financial.records.application.Encap;
  *
  */
 public class FrameAplication extends javax.swing.JFrame {
+    private DefaultTableModel model;
     
-    Encap encap; 
+    // Variable current id
+    private int id = 0;
+    
+    // Varieble id yang dipilih
+    private int selectedId = 0;
+    private int amount;
+    
     /**
      * Creates new form FrameAplication
      */
     public FrameAplication() {
         initComponents();
-        this.encap = new Encap();
-    }
+     
+       
+             this.initTable();
+       }
 
+private void initTable() {
+        // Initialize Table
+        model = new DefaultTableModel();
+        tb_data.setModel(model);
+        
+        // Menambahkan kolom awal pada bagian atas
+  
+        model.addColumn("Amount");
+        model.addColumn("Date ");
+        model.addColumn("Type");
+        model.addColumn("Description");
+        
+        // Membuat tombol agar tidak terlihat saat pertama kali dijalankan
+        btn_delete.setVisible(false); 
+    }       
+
+
+    private void store() {
+     
+        String amount = tf_amount.getText();
+        String date = tf_date.getText();
+        String type =  tf_type.getName();
+        String description = tf_description.getText();
+
+        this.number = this.number + 1;
+        String amount = String.valueOf(this.);
+
+        Object[] obj = new Object[]{
+            amount,
+            date,
+            type,
+            description, 
+           
+        };
+        
+        this.model.addRow(obj);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,13 +87,15 @@ public class FrameAplication extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        tf_amount = new javax.swing.JTextField();
+        tf_description = new javax.swing.JTextField();
+        tf_date = new javax.swing.JTextField();
+        tf_type = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_putin = new javax.swing.JButton();
+        btn_delete = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollBar1 = new javax.swing.JScrollBar();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -86,14 +135,24 @@ public class FrameAplication extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel7.setText("Date");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pengeluaran", "Pemasukan", "History" }));
+        tf_type.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pengeluaran", "Pemasukan" }));
+        tf_type.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tf_typeActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel8.setText("Tittle");
+        jLabel8.setText("Type");
 
-        jButton1.setText("PutIn");
+        btn_putin.setText("PutIn");
 
-        jButton2.setText("Delete");
+        btn_delete.setText("Delete");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel9.setText("Table");
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "tb_pemasukan", "tb_pengeluaran" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,7 +180,8 @@ public class FrameAplication extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7)
-                                    .addComponent(jLabel8))
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
                                 .addGap(36, 36, 36)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -129,19 +189,20 @@ public class FrameAplication extends javax.swing.JFrame {
                                         .addComponent(jLabel5))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField1)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(tf_amount)
+                                            .addComponent(tf_date, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                            .addComponent(tf_type, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tf_description, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(148, 148, 148)
-                                .addComponent(jButton1)
+                                .addComponent(btn_putin)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2)))
+                                .addComponent(btn_delete)))
                         .addGap(48, 48, 48))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -157,25 +218,31 @@ public class FrameAplication extends javax.swing.JFrame {
                     .addComponent(change_cost))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addComponent(tf_description, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_putin)
+                            .addComponent(btn_delete)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tf_amount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(49, Short.MAX_VALUE))
+                            .addComponent(tf_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(tf_type, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(220, 220, 240));
@@ -183,13 +250,13 @@ public class FrameAplication extends javax.swing.JFrame {
 
         tb_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Date", "Deskripsi", "Amount"
+                "Number", "Amount", "Date", "Type", "Description"
             }
         ));
         jScrollPane2.setViewportView(tb_data);
@@ -204,13 +271,12 @@ public class FrameAplication extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2)
-                        .addGap(29, 29, 29))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(375, 375, 375)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1017, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -250,6 +316,14 @@ public class FrameAplication extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_change_costPropertyChange
 
+    private void tf_typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tf_typeActionPerformed
+        // TODO add your handling code here:
+      
+             
+       
+       
+    }//GEN-LAST:event_tf_typeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -286,10 +360,10 @@ public class FrameAplication extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_delete;
+    private javax.swing.JButton btn_putin;
     private javax.swing.JLabel change_cost;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -298,13 +372,15 @@ public class FrameAplication extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTable tb_data;
+    private javax.swing.JTextField tf_amount;
+    private javax.swing.JTextField tf_date;
+    private javax.swing.JTextField tf_description;
+    private javax.swing.JComboBox<String> tf_type;
     // End of variables declaration//GEN-END:variables
 }

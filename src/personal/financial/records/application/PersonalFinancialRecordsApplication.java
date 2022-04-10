@@ -8,6 +8,7 @@ import form.FrameAplication;
  *
  * @author Alex Zaro Daeli
  */
+   
 public class PersonalFinancialRecordsApplication {
 
     /**
